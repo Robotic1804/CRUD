@@ -1,0 +1,56 @@
+<div class="container">
+<div style="text-align:center">
+  <h1>{{title}}</h1>
+</div>
+
+<form class="form-group row">
+
+<div class="col-md-3">
+<label for="Nombre">Nombre:</label>
+<input type="text" name="Nombre" id="Nombre" placeholder="Nombre" class="form-control" [(ngModel)]="cuadroNombre">
+
+</div>
+
+<div class="col-md-3">
+<label for="Apellido">Apellido:</label>
+<input type="text" name="apellido" id="apellido" placeholder="Apellido" class="form-control" [(ngModel)]="cuadroApellido">
+
+</div>
+
+<div class="col-md-3">
+<label for="Cargo">Cargo:</label>
+<input type="text" name="cargo" id="cargo" placeholder="Cargo" class="form-control" [(ngModel)]="cuadroCargo">
+
+</div>
+ 
+<div class="col-md-3">
+<label for="salario">Salario:</label>
+<input type="text" name="salario" id="salario" placeholder="salario" class="form-control" [(ngModel)]="cuadroSalario">
+
+</div>
+
+
+<div class="col">
+
+<button type="submit" class="btn btn-primary" (click)="agregarEmpleado()" style="margin-top: 35px"> Agregar</button>
+
+</div>
+
+</form>
+
+
+</div>
+
+
+
+
+
+
+
+<p>proyectos-comp works!</p>
+
+<div style="text-align:center">
+
+<button class="btn btn-primary" (click)="volverHome()">Ir a inicio</button>
+
+</div>
