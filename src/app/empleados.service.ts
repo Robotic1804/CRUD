@@ -61,13 +61,13 @@ import { ServicioEmpleadosService } from "./servicio-empleados.service";
     }
 
     eliminarEmpleado(indice: number) {
-        
+
         this.empleados.splice(indice, 1);
 
         this.dataService.eliminarEmpleados(indice);
 
-        this.dataService.guardarEmpleados(this.empleados);
-
+        if (this.empleados != null) this.dataService.guardarEmpleados(this.empleados);
+        
     }
 
 }
