@@ -2,9 +2,10 @@ import { Component, Input } from '@angular/core';
 import { Empleado } from '../empleado.model';
 
 @Component({
-  selector: 'app-paren-c',
-  templateUrl: './paren-c.component.html',
-  styleUrls: ['./paren-c.component.css']
+    selector: 'app-paren-c',
+    templateUrl: './paren-c.component.html',
+    styleUrls: ['./paren-c.component.css'],
+    standalone: false
 })
 export class ParenCComponent {
 

@@ -3,9 +3,10 @@ import { ServicioEmpleadosService } from '../servicio-empleados.service';
 
 
 @Component({
-  selector: 'app-caracteristica-emp',
-  templateUrl: './caracteristica-emp.component.html',
-  styleUrls: ['./caracteristica-emp.component.css']
+    selector: 'app-caracteristica-emp',
+    templateUrl: './caracteristica-emp.component.html',
+    styleUrls: ['./caracteristica-emp.component.css'],
+    standalone: false
 })
 export class CaracteristicaEmpComponent {
   @Output() caracteristicasEmpleado = new EventEmitter<string>();

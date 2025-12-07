@@ -5,9 +5,10 @@ import { EmpleadosService } from '../empleados.service';
 import { ServicioEmpleadosService } from '../servicio-empleados.service';
 
 @Component({
-  selector: 'app-actualiza-componente',
-  templateUrl: './actualiza-componente.component.html',
-  styleUrls: ['./actualiza-componente.component.css']
+    selector: 'app-actualiza-componente',
+    templateUrl: './actualiza-componente.component.html',
+    styleUrls: ['./actualiza-componente.component.css'],
+    standalone: false
 })
 export class ActualizaComponenteComponent {
 

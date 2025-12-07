@@ -5,9 +5,10 @@ import { EmpleadosService } from '../empleados.service';
 import { ServicioEmpleadosService } from '../servicio-empleados.service';
 
 @Component({
-  selector: 'app-proyectos-comp',
-  templateUrl: './proyectos-comp.component.html',
-  styleUrls: ['./proyectos-comp.component.css']
+    selector: 'app-proyectos-comp',
+    templateUrl: './proyectos-comp.component.html',
+    styleUrls: ['./proyectos-comp.component.css'],
+    standalone: false
 })
 export class ProyectosCompComponent {
 

@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-error-personalizado',
-  templateUrl: './error-personalizado.component.html',
-  styleUrls: ['./error-personalizado.component.css']
+    selector: 'app-error-personalizado',
+    templateUrl: './error-personalizado.component.html',
+    styleUrls: ['./error-personalizado.component.css'],
+    standalone: false
 })
 export class ErrorPersonalizadoComponent {
 

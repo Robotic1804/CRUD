@@ -4,9 +4,10 @@ import { EmpleadosService } from '../empleados.service';
 import { ServicioEmpleadosService } from '../servicio-empleados.service';
 
 @Component({
-  selector: 'app-home-component',
-  templateUrl: './home-component.component.html',
-  styleUrls: ['./home-component.component.css']
+    selector: 'app-home-component',
+    templateUrl: './home-component.component.html',
+    styleUrls: ['./home-component.component.css'],
+    standalone: false
 })
 export class HomeComponentComponent {
   title = 'Empleado de Lista';
