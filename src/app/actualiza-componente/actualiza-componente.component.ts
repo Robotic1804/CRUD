@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Empleado } from '../empleado.model';
 import { EmpleadosService } from '../empleados.service';
 import { ServicioEmpleadosService } from '../servicio-empleados.service';
+import { LoggerService } from '../shared/logger.service';
 
 @Component({
     selector: 'app-actualiza-componente',
@@ -13,24 +14,51 @@ import { ServicioEmpleadosService } from '../servicio-empleados.service';
 export class ActualizaComponenteComponent {
 
   title = 'Lista de empleados'
-  constructor(private router: Router, private route:ActivatedRoute, private miServicio: ServicioEmpleadosService, private empleadosService: EmpleadosService) { }
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private miServicio: ServicioEmpleadosService,
+    private empleadosService: EmpleadosService,
+    private logger: LoggerService
+  ) { }
 
 
   empleados: Empleado[];
   accion: number;
 
   ngOnInit(): void {
+    // Validar parámetro accion
+    const accionParam = this.route.snapshot.queryParams['accion'];
+    if (!accionParam || !['1', '2'].includes(accionParam)) {
+      this.logger.error('Parámetro accion inválido');
+      this.router.navigate(['']);
+      return;
+    }
+    this.accion = parseInt(accionParam);
 
-    this.accion= parseInt(this.route.snapshot.queryParams['accion'])
+    // Validar parámetro id
+    const idParam = this.route.snapshot.params['id'];
+    if (!idParam || isNaN(parseInt(idParam))) {
+      this.logger.error('Parámetro id inválido');
+      this.router.navigate(['']);
+      return;
+    }
+    this.indice = parseInt(idParam);
 
     this.empleados = this.empleadosService.empleados;
-    this.indice = this.route.snapshot.params['id'];
     let empleado: Empleado = this.empleadosService.encontrarEmpleado(this.indice);
+
+    // Validar que el empleado existe
+    if (!empleado) {
+      this.logger.error('Empleado no encontrado');
+      this.router.navigate(['']);
+      return;
+    }
+
     this.cuadroNombre = empleado.nombre;
     this.cuadroApellido = empleado.apellido;
     this.cuadroCargo = empleado.cargo;
     this.cuadroSalario = empleado.salario;
-
   }
   volverHome() {
 

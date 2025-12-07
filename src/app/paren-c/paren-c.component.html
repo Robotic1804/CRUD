@@ -18,7 +18,9 @@ Eliminar
 
 <app-caracteristica-emp (caracteristicasEmpleado)="agregarCaracterisca($event)"></app-caracteristica-emp>
 <ul style="list-style: none">
-  <li *ngFor="let Caracteristica of arrayCaracteristica">{{Caracteristica}}</li>
+  @for (caracteristica of arrayCaracteristica; track $index) {
+    <li>{{caracteristica}}</li>
+  }
 </ul>
 
 </div>

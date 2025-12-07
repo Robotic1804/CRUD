@@ -40,3 +40,13 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+
+# Environment files (contienen credenciales sensibles)
+/src/environments/environment.ts
+/src/environments/environment.development.ts
+# Permitir el archivo de ejemplo
+!/src/environments/environment.example.ts
+*.env
+.env.local
+.env.development
+.env.production

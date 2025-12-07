@@ -43,4 +43,6 @@
 
 <br><br>
 
-<app-paren-c *ngFor="let empleado of empleados; index as i " [empleadoDelista]="empleado" [index]="i"></app-paren-c>
+@for (empleado of empleados; track i; let i = $index) {
+  <app-paren-c [empleadoDelista]="empleado" [index]="i"></app-paren-c>
+}

@@ -18,7 +18,6 @@ import { DataServices } from './data.services';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { LoginComponent } from './login/login.component';
 import { LoginService } from './login/login.service';
-import { CookieService } from 'ngx-cookie-service';
 import { LoginGuardian } from './login/login-guardian';
 
 const appRoutes: Routes = [
@@ -48,5 +47,5 @@ const appRoutes: Routes = [
     ],
     bootstrap: [AppComponent], imports: [BrowserModule,
         FormsModule,
-        RouterModule.forRoot(appRoutes)], providers: [ServicioEmpleadosService, EmpleadosService, DataServices, LoginService, CookieService, LoginGuardian, provideHttpClient(withInterceptorsFromDi())] })
+        RouterModule.forRoot(appRoutes)], providers: [ServicioEmpleadosService, EmpleadosService, DataServices, LoginService, LoginGuardian, provideHttpClient(withInterceptorsFromDi())] })
 export class AppModule { }

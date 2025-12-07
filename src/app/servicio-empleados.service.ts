@@ -1,18 +1,14 @@
 import { Injectable } from '@angular/core';
+import { NotificationService } from './shared/notification.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ServicioEmpleadosService {
 
-  constructor() { }
+  constructor(private notificationService: NotificationService) { }
 
   muestraMensaje(mensaje: string) {
-    
-    alert(mensaje);
-
+    this.notificationService.info(mensaje);
   }
-
-
-
 }
