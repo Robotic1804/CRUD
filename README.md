@@ -280,6 +280,28 @@ ng build
 
 Build artifacts will be stored in the `dist/crud-app` directory.
 
+### Deploy to Vercel
+
+This project is ready for Vercel deployment with automatic environment configuration.
+
+**Quick Deploy:**
+
+1. Push your code to GitHub
+2. Import project to [Vercel](https://vercel.com)
+3. Add environment variables in Vercel dashboard:
+   - `FIREBASE_API_KEY`
+   - `FIREBASE_AUTH_DOMAIN`
+   - `FIREBASE_PROJECT_ID`
+   - `FIREBASE_DATABASE_URL`
+   - `FIREBASE_STORAGE_BUCKET`
+   - `FIREBASE_MESSAGING_SENDER_ID`
+   - `FIREBASE_APP_ID`
+4. Deploy!
+
+📖 **Full deployment guide**: See [VERCEL_SETUP.md](VERCEL_SETUP.md) for detailed instructions.
+
+The build script automatically generates environment files from Vercel environment variables during deployment.
+
 ### Run Tests
 
 ```bash

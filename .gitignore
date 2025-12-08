@@ -50,3 +50,6 @@ Thumbs.db
 .env.local
 .env.development
 .env.production
+
+# Vercel environment variables (contiene credenciales)
+VERCEL_ENV_VARS.txt
