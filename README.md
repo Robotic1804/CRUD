@@ -21,14 +21,25 @@
 
 ## 📋 Description
 
-Complete employee management system (CRUD) with Firebase authentication, built with the latest versions of Angular and following modern development best practices.
+Complete employee management system (CRUD) with **advanced Firebase authentication**, built with the latest versions of Angular and following modern development best practices.
 
-The application allows you to create, read, update, and delete employee records, with a robust authentication and data validation system.
+The application features:
+- 🔐 **Multiple authentication methods**: Email/Password and Google OAuth
+- 👤 **Complete user management**: Registration, login, profile, and password recovery
+- 💼 **Full CRUD operations** for employee management
+- 🎨 **Modern, responsive UI** with Bootstrap 5
+- 🔒 **Enterprise-grade security** with JWT tokens and route guards
 
 ## ✨ Features
 
-### 🔐 Security
-- ✅ Firebase Auth authentication
+### 🔐 Authentication & Security
+- ✅ **Firebase Auth** authentication
+- ✅ **User Registration** with email validation
+- ✅ **Email/Password Login** with error handling
+- ✅ **Google Sign-In** (OAuth 2.0)
+- ✅ **Forgot Password** with email recovery
+- ✅ **Email Verification** system
+- ✅ **User Profile** page with account details
 - ✅ Securely stored JWT tokens
 - ✅ Route protection with Guards
 - ✅ Input validation on all forms
@@ -45,8 +56,12 @@ The application allows you to create, read, update, and delete employee records,
 ### 🎨 Modern UI/UX
 - ✅ Responsive, mobile-first design
 - ✅ Modern template syntax (`@if`, `@for`)
+- ✅ **Loading spinners** for async operations
+- ✅ **User-friendly error messages** with dismissible alerts
+- ✅ **Success notifications** for completed actions
 - ✅ Intuitive navigation with Angular Router
 - ✅ Visual feedback for CRUD operations
+- ✅ Bootstrap 5 cards and modern components
 
 ### 🏗️ Architecture
 - ✅ Modular and reusable services
@@ -86,15 +101,28 @@ CRUD/
 │   │   ├── caracteristica-emp/        # Employee features
 │   │   ├── contacto-comp/             # Contact page
 │   │   ├── error-personalizado/       # 404 page
+│   │   ├── forgot-password/           # 🆕 Password recovery
+│   │   │   ├── forgot-password.component.ts
+│   │   │   ├── forgot-password.component.html
+│   │   │   └── forgot-password.component.css
 │   │   ├── home-component/            # Main page (list)
 │   │   ├── login/                     # Authentication system
 │   │   │   ├── login.component.ts
-│   │   │   ├── login.service.ts
+│   │   │   ├── login.service.ts       # Auth + Google Sign-In
 │   │   │   └── login-guardian.ts      # Route Guard
+│   │   ├── register/                  # 🆕 User registration
+│   │   │   ├── register.component.ts
+│   │   │   ├── register.component.html
+│   │   │   └── register.component.css
+│   │   ├── user-profile/              # 🆕 User profile page
+│   │   │   ├── user-profile.component.ts
+│   │   │   ├── user-profile.component.html
+│   │   │   └── user-profile.component.css
 │   │   ├── paren-c/                   # Employee component
 │   │   ├── proyectos-comp/            # Projects page
 │   │   ├── quienes-somos-comp/        # About us page
 │   │   ├── shared/                    # Shared services
+│   │   │   ├── loading-spinner/       # 🆕 Reusable spinner
 │   │   │   ├── firebase-response.interface.ts
 │   │   │   ├── logger.service.ts
 │   │   │   └── notification.service.ts
@@ -105,8 +133,10 @@ CRUD/
 │   │   └── empleados.service.ts       # Business logic
 │   ├── environments/                   # Environment variables
 │   │   ├── environment.ts             # Production
-│   │   └── environment.development.ts # Development
+│   │   ├── environment.development.ts # Development
+│   │   └── environment.example.ts     # Template for setup
 │   ├── assets/                        # Static resources
+│   ├── main.ts                        # 🔥 Firebase initialization
 │   └── index.html
 ├── angular.json                       # Angular configuration
 ├── package.json                       # Dependencies
@@ -160,7 +190,17 @@ export const environment = {
 
 > ⚠️ **IMPORTANT**: Never upload your Firebase credentials to public repositories. Add `src/environments/` to your `.gitignore`.
 
-4. **Start the development server**
+4. **Enable Firebase Authentication Providers**
+
+In the [Firebase Console](https://console.firebase.google.com/):
+   - Go to **Authentication** → **Sign-in method**
+   - Enable **Email/Password** provider
+   - Enable **Google** provider:
+     - Add your support email
+     - Add your project's public-facing name
+   - Save changes
+
+5. **Start the development server**
 ```bash
 ng serve
 ```
@@ -178,6 +218,57 @@ ng serve
 ```
 
 The application will automatically reload when you make changes to the files.
+
+### Available Routes
+
+| Route | Description | Protected |
+|-------|-------------|-----------|
+| `/` | Home - Employee list | ❌ No |
+| `/login` | User login (Email/Password or Google) | ❌ No |
+| `/register` | New user registration | ❌ No |
+| `/forgot-password` | Password recovery | ❌ No |
+| `/profile` | User profile and account settings | ✅ Yes |
+| `/quienes` | About us page | ✅ Yes |
+| `/contacto` | Contact page | ✅ Yes |
+| `/proyectos` | Projects page | ❌ No |
+| `/actualiza/:id` | Update employee | ❌ No |
+
+### Authentication Features
+
+#### 1️⃣ **Register New User**
+- Navigate to `/register`
+- Enter email and password (min 6 characters)
+- Confirm password
+- Click "Register"
+- Automatically logged in and redirected to home
+
+#### 2️⃣ **Login with Email/Password**
+- Navigate to `/login`
+- Enter your credentials
+- Click "Login"
+- Redirected to home page
+
+#### 3️⃣ **Login with Google**
+- Navigate to `/login`
+- Click "Sign in with Google" button
+- Select your Google account
+- Automatically redirected back and logged in
+
+#### 4️⃣ **Forgot Password**
+- Click "Forgot password?" link on login page
+- Enter your email address
+- Click "Send Reset Link"
+- Check your email for password reset instructions
+
+#### 5️⃣ **User Profile**
+- After logging in, click "Profile" in navigation
+- View your account details:
+  - Email address
+  - Email verification status
+  - Account creation date
+  - Last sign-in time
+- Send verification email if not verified
+- Logout from your account
 
 ### Build for Production
 
@@ -236,7 +327,14 @@ Handles business logic for CRUD operations.
 Communicates with Firebase Realtime Database.
 
 #### 🔹 LoginService
-Manages authentication with Firebase Auth.
+Advanced authentication manager with:
+- User registration (`register()`)
+- Email/password login (`login()`)
+- Google OAuth Sign-In (`loginWithGoogle()`)
+- Password recovery (`resetPassword()`)
+- Redirect handling (`handleRedirectResult()`)
+- Session management with JWT tokens
+- Auth state listener for automatic token refresh
 
 #### 🔹 LoggerService
 Conditional logging system (development vs production).
@@ -308,10 +406,56 @@ npm install
 
 **Solution**: Verify that the Firebase URL in `environment.ts` is correct and that security rules allow access.
 
+### Issue: "No Firebase App '[DEFAULT]' has been created"
+
+**Solution**: This happens when Firebase isn't initialized before Angular starts. The app already handles this by initializing Firebase in `main.ts` before bootstrapping Angular.
+
+### Issue: Google Sign-In not working - "auth/operation-not-allowed"
+
+**Solution**:
+1. Go to [Firebase Console](https://console.firebase.google.com/)
+2. Navigate to **Authentication** → **Sign-in method**
+3. Enable the **Google** provider
+4. Add your support email
+5. Save changes
+
+### Issue: Cross-Origin-Opener-Policy errors with Google Sign-In
+
+**Solution**: The app uses `signInWithRedirect` instead of `signInWithPopup` to avoid COOP issues. This is already implemented.
+
+### Issue: 401 Unauthorized error after Google login
+
+**Solution**: The app uses `onAuthStateChanged` listener to automatically refresh tokens. Make sure you're on the latest version of the code.
+
+## 🆕 What's New in v2.0
+
+This version includes major authentication enhancements:
+
+### New Components
+- ✨ **User Registration** - Complete signup flow with validation
+- ✨ **Forgot Password** - Email-based password recovery
+- ✨ **User Profile** - Account details and email verification
+- ✨ **Loading Spinner** - Reusable component for async operations
+
+### New Features
+- 🔐 **Google Sign-In** - OAuth 2.0 authentication with redirect flow
+- 📧 **Email Verification** - Send verification emails from profile page
+- 🔄 **Auto Token Refresh** - Auth state listener keeps tokens updated
+- ⚠️ **Enhanced Error Handling** - User-friendly error messages
+- 🎨 **Modern UI Updates** - Bootstrap 5 cards, alerts, and icons
+
+### Technical Improvements
+- 🚀 Firebase initialization moved to `main.ts` for better reliability
+- 🔧 Changed from `signInWithPopup` to `signInWithRedirect` to avoid COOP issues
+- 🛡️ Automatic JWT token management with `onAuthStateChanged`
+- 📱 Fully responsive authentication pages
+- ♻️ Reusable loading spinner component across the app
+
 ## 📚 Additional Resources
 
 - [Angular Documentation](https://angular.io/docs)
 - [Firebase Documentation](https://firebase.google.com/docs)
+- [Firebase Authentication](https://firebase.google.com/docs/auth)
 - [Bootstrap 5 Documentation](https://getbootstrap.com/docs/5.3/)
 - [RxJS Documentation](https://rxjs.dev/)
 

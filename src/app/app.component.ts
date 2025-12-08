@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import firebase from 'firebase/compat/app'
 import { LoginService } from './login/login.service';
-import { environment } from '../environments/environment.development';
 
 
 @Component({
@@ -11,13 +9,19 @@ import { environment } from '../environments/environment.development';
     standalone: false
 })
 export class AppComponent implements OnInit {
-  
+
 
   constructor(private loginService: LoginService) { }
-  
+
 
   ngOnInit(): void {
-    firebase.initializeApp(environment.firebase);
+    // Firebase is now initialized in main.ts before Angular starts
+
+    // Handle Google Sign-In redirect result
+    this.loginService.handleRedirectResult().catch(error => {
+      // Silently handle errors, they will be shown in LoginComponent if needed
+      console.error('Error handling redirect:', error);
+    });
   }
 
  

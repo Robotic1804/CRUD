@@ -1,0 +1,94 @@
+<div class="container">
+  <div class="row justify-content-center mt-5">
+    <div class="col-md-6">
+      <div class="card shadow">
+        <div class="card-body">
+          <h2 class="card-title text-center mb-4">Create Account</h2>
+
+          <!-- Error Message -->
+          @if (errorMessage) {
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+              {{ errorMessage }}
+              <button type="button" class="btn-close" (click)="errorMessage = ''"></button>
+            </div>
+          }
+
+          <!-- Success Message -->
+          @if (successMessage) {
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+              {{ successMessage }}
+              <button type="button" class="btn-close" (click)="successMessage = ''"></button>
+            </div>
+          }
+
+          <!-- Loading Spinner -->
+          @if (isLoading) {
+            <app-loading-spinner message="Creating your account..."></app-loading-spinner>
+          } @else {
+            <form #registerForm="ngForm" (ngSubmit)="register(registerForm)">
+            <!-- Email Field -->
+            <div class="mb-3">
+              <label for="email" class="form-label">Email address</label>
+              <input
+                type="email"
+                class="form-control"
+                id="email"
+                name="email"
+                placeholder="Enter your email"
+                ngModel
+                required
+                email>
+              <div class="form-text">We'll never share your email with anyone else.</div>
+            </div>
+
+            <!-- Password Field -->
+            <div class="mb-3">
+              <label for="password" class="form-label">Password</label>
+              <input
+                type="password"
+                class="form-control"
+                id="password"
+                name="password"
+                placeholder="Enter password"
+                ngModel
+                required
+                minlength="6">
+              <div class="form-text">Password must be at least 6 characters.</div>
+            </div>
+
+            <!-- Confirm Password Field -->
+            <div class="mb-3">
+              <label for="confirmPassword" class="form-label">Confirm Password</label>
+              <input
+                type="password"
+                class="form-control"
+                id="confirmPassword"
+                name="confirmPassword"
+                placeholder="Confirm your password"
+                ngModel
+                required>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="d-grid gap-2">
+              <button
+                type="submit"
+                class="btn btn-primary btn-lg"
+                [disabled]="!registerForm.valid">
+                Register
+              </button>
+            </div>
+          </form>
+
+          <!-- Login Link -->
+          <div class="text-center mt-3">
+            <p class="mb-0">Already have an account?
+              <a routerLink="/login" class="text-decoration-none">Login here</a>
+            </p>
+          </div>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

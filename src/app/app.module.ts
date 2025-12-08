@@ -19,15 +19,22 @@ import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 import { LoginComponent } from './login/login.component';
 import { LoginService } from './login/login.service';
 import { LoginGuardian } from './login/login-guardian';
+import { RegisterComponent } from './register/register.component';
+import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
 
 const appRoutes: Routes = [
-  
+
   { path: '', component: HomeComponentComponent },
   { path: 'proyectos', component: ProyectosCompComponent},
   { path: 'quienes', component: QuienesSomosCompComponent, canActivate: [LoginGuardian] },
   { path: 'contacto', component: ContactoCompComponent, canActivate:[LoginGuardian] },
   { path: 'actualiza/:id', component: ActualizaComponenteComponent },
   { path:  'login', component: LoginComponent},
+  { path:  'register', component: RegisterComponent},
+  { path:  'forgot-password', component: ForgotPasswordComponent},
+  { path:  'profile', component: UserProfileComponent, canActivate: [LoginGuardian] },
   { path: '**', component: ErrorPersonalizadoComponent }
 
 ];
@@ -43,6 +50,10 @@ const appRoutes: Routes = [
         ContactoCompComponent,
         ActualizaComponenteComponent,
         LoginComponent,
+        RegisterComponent,
+        LoadingSpinnerComponent,
+        ForgotPasswordComponent,
+        UserProfileComponent,
         ErrorPersonalizadoComponent,
     ],
     bootstrap: [AppComponent], imports: [BrowserModule,

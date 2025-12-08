@@ -1,27 +1,92 @@
-<div>
-    <br>
-<form class="form-group row" #miFormulario="ngForm" (ngSubmit)="login(miFormulario)">
+<div class="container">
+  <div class="row justify-content-center mt-5">
+    <div class="col-md-6">
+      <div class="card shadow">
+        <div class="card-body">
+          <h2 class="card-title text-center mb-4">Login</h2>
 
-<div class="form-group col-md-3">
+          <!-- Error Message -->
+          @if (errorMessage) {
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+              {{ errorMessage }}
+              <button type="button" class="btn-close" (click)="errorMessage = ''"></button>
+            </div>
+          }
 
-    <input type="email" name="email" placeholder="Email" class="form-control" ngModel>
+          <!-- Loading Spinner -->
+          @if (isLoading) {
+            <app-loading-spinner message="Logging in..."></app-loading-spinner>
+          } @else {
+            <form class="form-group" #miFormulario="ngForm" (ngSubmit)="login(miFormulario)">
+            <!-- Email Field -->
+            <div class="mb-3">
+              <label for="email" class="form-label">Email address</label>
+              <input
+                type="email"
+                name="email"
+                id="email"
+                placeholder="Enter your email"
+                class="form-control"
+                ngModel
+                required
+                email>
+            </div>
 
-</div >
+            <!-- Password Field -->
+            <div class="mb-3">
+              <label for="password" class="form-label">Password</label>
+              <input
+                type="password"
+                name="password"
+                id="password"
+                placeholder="Enter your password"
+                class="form-control"
+                ngModel
+                required>
+            </div>
 
-<div class="form-group col-md-3">
+            <!-- Submit Button -->
+            <div class="d-grid gap-2">
+              <button
+                type="submit"
+                class="btn btn-primary btn-lg"
+                [disabled]="!miFormulario.valid">
+                Login
+              </button>
+            </div>
+          </form>
 
-    <input type="password" name="password" placeholder="Password" class="form-control" ngModel>
+          <!-- Divider -->
+          <div class="position-relative my-4">
+            <hr>
+            <span class="position-absolute top-50 start-50 translate-middle bg-white px-3 text-muted">OR</span>
+          </div>
 
-</div>
-<br><br>
-<div>
+          <!-- Google Login Button -->
+          <div class="d-grid gap-2">
+            <button
+              type="button"
+              class="btn btn-outline-danger btn-lg"
+              (click)="loginWithGoogle()">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-google me-2" viewBox="0 0 16 16">
+                <path d="M15.545 6.558a9.42 9.42 0 0 1 .139 1.626c0 2.434-.87 4.492-2.384 5.885h.002C11.978 15.292 10.158 16 8 16A8 8 0 1 1 8 0a7.689 7.689 0 0 1 5.352 2.082l-2.284 2.284A4.347 4.347 0 0 0 8 3.166c-2.087 0-3.86 1.408-4.492 3.304a4.792 4.792 0 0 0 0 3.063h.003c.635 1.893 2.405 3.301 4.492 3.301 1.078 0 2.004-.276 2.722-.764h-.003a3.702 3.702 0 0 0 1.599-2.431H8v-3.08h7.545z"/>
+              </svg>
+              Sign in with Google
+            </button>
+          </div>
 
-<button type="submit"class="btn btn-primary">Login</button>
-
-</div>
-
-</form>
-
-
-
+          <!-- Register Link -->
+          <div class="text-center mt-3">
+            <p class="mb-0">Don't have an account?
+              <a routerLink="/register" class="text-decoration-none">Register here</a>
+            </p>
+            <p class="mb-0 mt-2">
+              <a routerLink="/forgot-password" class="text-decoration-none text-muted">Forgot password?</a>
+            </p>
+          </div>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

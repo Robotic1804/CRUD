@@ -1,0 +1,107 @@
+<div class="container">
+  <div class="row justify-content-center mt-5">
+    <div class="col-md-8">
+      <div class="card shadow">
+        <div class="card-body">
+          <h2 class="card-title text-center mb-4">User Profile</h2>
+
+          <!-- Loading Spinner -->
+          @if (isLoading) {
+            <app-loading-spinner message="Loading profile..."></app-loading-spinner>
+          } @else {
+            <!-- Error Message -->
+            @if (errorMessage) {
+              <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                {{ errorMessage }}
+                <button type="button" class="btn-close" (click)="errorMessage = ''"></button>
+              </div>
+            }
+
+            <!-- Success Message -->
+            @if (successMessage) {
+              <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ successMessage }}
+                <button type="button" class="btn-close" (click)="successMessage = ''"></button>
+              </div>
+            }
+
+            <!-- Profile Content -->
+            <div class="row">
+              <!-- Profile Picture -->
+              <div class="col-md-4 text-center mb-4">
+                <img [src]="photoURL" alt="Profile Picture" class="rounded-circle img-fluid mb-3" style="max-width: 150px;">
+                @if (!emailVerified) {
+                  <div class="alert alert-warning p-2" role="alert">
+                    <small>Email not verified</small>
+                  </div>
+                } @else {
+                  <div class="alert alert-success p-2" role="alert">
+                    <small>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" class="bi bi-check-circle-fill me-1" viewBox="0 0 16 16">
+                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+                      </svg>
+                      Email verified
+                    </small>
+                  </div>
+                }
+              </div>
+
+              <!-- Profile Information -->
+              <div class="col-md-8">
+                <div class="mb-3">
+                  <label class="form-label fw-bold">Display Name</label>
+                  <p class="form-control-plaintext">{{ displayName }}</p>
+                </div>
+
+                <div class="mb-3">
+                  <label class="form-label fw-bold">Email</label>
+                  <p class="form-control-plaintext">{{ email }}</p>
+                </div>
+
+                <div class="mb-3">
+                  <label class="form-label fw-bold">Account Created</label>
+                  <p class="form-control-plaintext">{{ creationTime | date: 'medium' }}</p>
+                </div>
+
+                <div class="mb-3">
+                  <label class="form-label fw-bold">Last Sign In</label>
+                  <p class="form-control-plaintext">{{ lastSignInTime | date: 'medium' }}</p>
+                </div>
+
+                <!-- Email Verification Button -->
+                @if (!emailVerified) {
+                  <div class="mb-3">
+                    <button
+                      type="button"
+                      class="btn btn-warning"
+                      (click)="sendVerificationEmail()">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope-check me-2" viewBox="0 0 16 16">
+                        <path d="M2 2a2 2 0 0 0-2 2v8.01A2 2 0 0 0 2 14h5.5a.5.5 0 0 0 0-1H2a1 1 0 0 1-.966-.741l5.64-3.471L8 9.583l7-4.2V8.5a.5.5 0 0 0 1 0V4a2 2 0 0 0-2-2zm3.708 6.208L1 11.105V5.383zM1 4.217V4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v.217l-7 4.2z"/>
+                        <path d="M16 12.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0m-1.993-1.679a.5.5 0 0 0-.686.172l-1.17 1.95-.547-.547a.5.5 0 0 0-.708.708l.774.773a.75.75 0 0 0 1.174-.144l1.335-2.226a.5.5 0 0 0-.172-.686"/>
+                      </svg>
+                      Send Verification Email
+                    </button>
+                  </div>
+                }
+
+                <!-- Action Buttons -->
+                <div class="d-grid gap-2 mt-4">
+                  <button
+                    type="button"
+                    class="btn btn-outline-danger"
+                    (click)="logout()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-right me-2" viewBox="0 0 16 16">
+                      <path fill-rule="evenodd" d="M10 12.5a.5.5 0 0 1-.5.5h-8a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h8a.5.5 0 0 1 .5.5v2a.5.5 0 0 0 1 0v-2A1.5 1.5 0 0 0 9.5 2h-8A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h8a1.5 1.5 0 0 0 1.5-1.5v-2a.5.5 0 0 0-1 0z"/>
+                      <path fill-rule="evenodd" d="M15.854 8.354a.5.5 0 0 0 0-.708l-3-3a.5.5 0 0 0-.708.708L14.293 7.5H5.5a.5.5 0 0 0 0 1h8.793l-2.147 2.146a.5.5 0 0 0 .708.708z"/>
+                    </svg>
+                    Logout
+                  </button>
+                </div>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

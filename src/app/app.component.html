@@ -22,7 +22,10 @@
       }
       @if (estaLogueado()) {
         <li class="nav-item" style="margin-left: 1000px">
-          <a class="nav-link" (click)="logOut()" href="">logout</a>
+          <a class="nav-link" routerLink="/profile">Profile</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" (click)="logOut()" href="">Logout</a>
         </li>
       }
     </ul>
