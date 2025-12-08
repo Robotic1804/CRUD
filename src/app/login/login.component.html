@@ -2,7 +2,10 @@
   <div class="row justify-content-center mt-5">
     <div class="col-md-6">
       <div class="card shadow">
-        <div class="card-body">
+        <div class="card-body position-relative">
+          <!-- Close Button -->
+          <button type="button" class="btn-close position-absolute top-0 end-0 m-3" aria-label="Close" (click)="closeLogin()"></button>
+
           <h2 class="card-title text-center mb-4">Login</h2>
 
           <!-- Error Message -->
@@ -15,7 +18,11 @@
 
           <!-- Loading Spinner -->
           @if (isLoading) {
-            <app-loading-spinner message="Logging in..."></app-loading-spinner>
+            <app-loading-spinner
+              message="Logging in..."
+              [showCancel]="true"
+              (cancel)="cancelLogin()">
+            </app-loading-spinner>
           } @else {
             <form class="form-group" #miFormulario="ngForm" (ngSubmit)="login(miFormulario)">
             <!-- Email Field -->
@@ -27,6 +34,7 @@
                 id="email"
                 placeholder="Enter your email"
                 class="form-control"
+                autocomplete="email"
                 ngModel
                 required
                 email>
@@ -41,6 +49,7 @@
                 id="password"
                 placeholder="Enter your password"
                 class="form-control"
+                autocomplete="current-password"
                 ngModel
                 required>
             </div>

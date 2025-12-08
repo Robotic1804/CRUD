@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-loading-spinner',
@@ -8,4 +8,10 @@ import { Component, Input } from '@angular/core';
 })
 export class LoadingSpinnerComponent {
   @Input() message: string = 'Loading...';
+  @Input() showCancel: boolean = false;
+  @Output() cancel = new EventEmitter<void>();
+
+  onCancel(): void {
+    this.cancel.emit();
+  }
 }

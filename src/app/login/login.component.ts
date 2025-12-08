@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 import { LoginService } from './login.service';
 
 @Component({
@@ -13,16 +14,13 @@ export class LoginComponent implements OnInit {
   isLoading: boolean = false;
   errorMessage: string = '';
 
-  constructor(private longinService:LoginService){}
+  constructor(
+    private longinService:LoginService,
+    private router: Router
+  ){}
 
   ngOnInit(): void {
-    // Handle Google redirect result
-    this.longinService.handleRedirectResult()
-      .catch((error) => {
-        if (error && error.code) {
-          this.errorMessage = this.getFriendlyErrorMessage(error.code);
-        }
-      });
+    // No longer needed with popup approach
   }
 
   login(form: NgForm) {
@@ -47,11 +45,24 @@ export class LoginComponent implements OnInit {
     this.isLoading = true;
 
     this.longinService.loginWithGoogle()
+      .then(() => {
+        this.isLoading = false;
+      })
       .catch((error) => {
         this.isLoading = false;
-        this.errorMessage = this.getFriendlyErrorMessage(error.code);
+        if (error && error.code) {
+          this.errorMessage = this.getFriendlyErrorMessage(error.code);
+        }
       });
-    // Note: The redirect happens here, so isLoading will stay true until redirect
+  }
+
+  cancelLogin() {
+    this.isLoading = false;
+    this.errorMessage = '';
+  }
+
+  closeLogin() {
+    this.router.navigate(['/']);
   }
 
   private getFriendlyErrorMessage(errorCode: string): string {

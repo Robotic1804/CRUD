@@ -47,7 +47,7 @@ export class LoginService {
     login(email: string, password: string): Promise<void> {
         return firebase.auth().signInWithEmailAndPassword(email, password).then(
             response => {
-                return firebase.auth().currentUser?.getIdToken().then(
+                return firebase.auth().currentUser?.getIdToken(true).then(
                     token => {
                         this.token = token;
                         localStorage.setItem("token", this.token);
@@ -83,18 +83,24 @@ export class LoginService {
 
     loginWithGoogle(): Promise<void> {
         const provider = new firebase.auth.GoogleAuthProvider();
-        return firebase.auth().signInWithRedirect(provider);
-    }
+        provider.addScope('profile');
+        provider.addScope('email');
 
-    handleRedirectResult(): Promise<void> {
-        return firebase.auth().getRedirectResult()
+        return firebase.auth().signInWithPopup(provider)
             .then((result) => {
                 if (result.user) {
-                    return result.user.getIdToken().then(token => {
+                    // Force token refresh to ensure we have the latest token
+                    return result.user.getIdToken(true).then(token => {
                         this.token = token;
                         localStorage.setItem("token", this.token);
                         this.logger.log('Google login successful');
-                        this.router.navigate(['/']);
+                        // Small delay to ensure token is fully synced
+                        return new Promise<void>(resolve => {
+                            setTimeout(() => {
+                                this.router.navigate(['/']);
+                                resolve();
+                            }, 100);
+                        });
                     });
                 }
                 return Promise.resolve();
@@ -105,6 +111,11 @@ export class LoginService {
                 }
                 return Promise.reject(error);
             });
+    }
+
+    handleRedirectResult(): Promise<void> {
+        // No longer needed with popup, but keeping for compatibility
+        return Promise.resolve();
     }
 
     logOut() {

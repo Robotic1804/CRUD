@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { Empleado } from "./empleado.model";
@@ -19,18 +19,14 @@ export class DataServices {
 
     cargarEmpleado(): Observable<FirebaseEmpleadosResponse> {
         const token = this.loginService.getIdToken();
-        const headers = new HttpHeaders({
-            'Authorization': `Bearer ${token}`
-        });
-        return this.httpClient.get<FirebaseEmpleadosResponse>(`${environment.firebase.databaseURL}/datos.json`, { headers });
+        const url = `${environment.firebase.databaseURL}/datos.json?auth=${token}`;
+        return this.httpClient.get<FirebaseEmpleadosResponse>(url);
     }
 
     guardarEmpleados(empleados: Empleado[]) {
         const token = this.loginService.getIdToken();
-        const headers = new HttpHeaders({
-            'Authorization': `Bearer ${token}`
-        });
-        this.httpClient.put(`${environment.firebase.databaseURL}/datos.json`, empleados, { headers }).subscribe(
+        const url = `${environment.firebase.databaseURL}/datos.json?auth=${token}`;
+        this.httpClient.put(url, empleados).subscribe(
             response => this.logger.log("Se han guardado los empleados:", response),
             error => this.logger.error("Error al guardar empleados:", error)
         );
@@ -38,11 +34,8 @@ export class DataServices {
     
     actualizarEmpleados(indice:number, empleado: Empleado) {
         const token = this.loginService.getIdToken();
-        const headers = new HttpHeaders({
-            'Authorization': `Bearer ${token}`
-        });
-        const url = `${environment.firebase.databaseURL}/datos/${indice}.json`;
-        this.httpClient.put(url, empleado, { headers }).subscribe(
+        const url = `${environment.firebase.databaseURL}/datos/${indice}.json?auth=${token}`;
+        this.httpClient.put(url, empleado).subscribe(
             response => this.logger.log("Se ha modificado correctamente el empleado:", response),
             error => this.logger.error("Error al actualizar empleado:", error)
         );
@@ -50,11 +43,8 @@ export class DataServices {
 
     eliminarEmpleados(indice: number) {
         const token = this.loginService.getIdToken();
-        const headers = new HttpHeaders({
-            'Authorization': `Bearer ${token}`
-        });
-        const url = `${environment.firebase.databaseURL}/datos/${indice}.json`;
-        this.httpClient.delete(url, { headers }).subscribe(
+        const url = `${environment.firebase.databaseURL}/datos/${indice}.json?auth=${token}`;
+        this.httpClient.delete(url).subscribe(
             response => this.logger.log("Se ha eliminado correctamente el empleado:", response),
             error => this.logger.error("Error al eliminar empleado:", error)
         );

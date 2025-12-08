@@ -53,3 +53,4 @@ Thumbs.db
 
 # Vercel environment variables (contiene credenciales)
 VERCEL_ENV_VARS.txt
+VERCEL_SETUP.md
